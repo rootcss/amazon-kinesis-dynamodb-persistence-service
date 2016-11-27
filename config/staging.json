@@ -1,0 +1,15 @@
+{
+    "Dynamo": {
+        "insert_events": true,
+        // "endpoint": "http://localhost:8000",
+        "TimelineEvents": {
+            "tableName": "api_events_staging"
+        }
+    },
+    "Kinesis": {
+        "redisUrl" : "redis://localhost:6379",
+        "streamName": "staging-api_events",
+        "testStreamName": "test-transaction_events"
+    }
+
+}

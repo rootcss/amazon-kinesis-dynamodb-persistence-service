@@ -1,0 +1,20 @@
+{
+    "Dynamo": {
+        "insert_events": true,
+        /* insert_events is true by default. set it to false, if don't want to insert into Dynamo. Dont make changes in this file. override it in development.json */
+        "endpoint": "http://localhost:8000",
+        "TimelineEvents": {
+            "tableName": ""
+        },
+        "Merchant": {
+            "tableName": ""
+        }
+        /*include other tables*/
+    },
+    "Kinesis": {
+        "redisUrl" : "redis://localhost:6379",
+        "streamName": "",
+        "testStreamName": ""
+    }
+
+}
