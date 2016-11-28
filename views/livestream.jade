@@ -1,0 +1,22 @@
+doctype html
+html
+	head
+		title= title
+		link(rel='stylesheet', href='/stylesheets/style.css')
+		link(rel='stylesheet', href='/stylesheets/kinesis_dump.css')
+		script(type='text/javascript', src='/socket.io/socket.io.js')
+		script(type='text/javascript', src='http://code.jquery.com/jquery-1.10.1.js')
+		script(type='text/javascript', src='http://code.highcharts.com/highcharts.js')
+		script(type='text/javascript', src='/javascripts/sio.js')
+	body
+		p
+		| #[a(href="/") Home] |
+		| #[a(href="/livestream/") Real-time streaming] |
+		| #[a(href="/dynamo/scan/0bb4ac97-55ad-4712-9dfa-78099eacff95") Scan] |
+		| #[a(href="/dynamo/query/0bb4ac97-55ad-4712-9dfa-78099eacff95") Query] |
+		hr
+		h1= title
+		span#connected Connecting..
+		div#loading
+		div#container
+		div#content
