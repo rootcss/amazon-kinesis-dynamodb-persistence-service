@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- <meta http-equiv="refresh" content="3" > -->
+    <title>Kinesis Dump</title>
+</head>
+
+<body>
+    <script>
+        var PORT = '8080';
+        var SERVER_URL = "http://localhost:" + PORT;
+    </script>
+    <script src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script>
+    var socket = io.connect(SERVER_URL);
+
+    socket.on('connect', function() {
+        document.getElementById('connected').innerHTML = '<span style="color:green;">Connected!</span>';
+    });
+
+    socket.on('disconnect', function(){
+       document.getElementById('connected').innerHTML = '<span style="color:red;">Disconnected!</span>';
+    });
+
+    socket.on("datadump", function(tweet) {
+        var stuff = "";
+        stuff = '<a target="_blank" style="text-decoration:none;" href="'+ SERVER_URL +'/dynamo/query/' + tweet.EventID + '">\
+                <div id="data-tab" title="Data: ' + tweet.data + '">\
+                    <span id="eventid"><span id="etitle">EventID </span>' + tweet.EventID + '</span>\
+                    <span id="eventtimestamp">' + tweet.EventTimestamp + '<span id="etitle"> EventTimestamp</span></span>\
+                    <br>\
+                    <!--<center><span style="color:#000;">' + tweet.data + '</span></center>-->\
+                    <span id="eventname"><span id="etitle">EventName </span>' + tweet.EventName + '</span>\
+                    \
+                    <span id="shradid">' + tweet.shardId + '<span id="etitle"> ShardId</span></span>\
+                </div>\
+                </a>';
+        document.getElementById('content').innerHTML = stuff + document.getElementById('content').innerHTML;
+    });
+
+    </script>
+    <center><h2>Kinesis Dump</h2>
+    <span id="connected">Not connected</span></center>
+
+    <div id="content">
+
+    </div>
+
+    <style type="text/css">
+    #data-tab{
+        margin: 0px auto;
+        max-width: 800px;
+        height:35px;
+        margin-top:10px;
+        padding:10px;
+        background:#f0f0f0;
+        color:white;
+        border-radius:3px;
+        cursor: pointer;
+    }
+    #eventid{
+        color: black;
+        float: left;
+    }
+    #eventname{
+        color: blue;
+        float: left;
+    }
+    #eventtimestamp{
+        color: black;
+        float: right;
+    }
+    #shradid{
+        color: black;
+        float: right;
+    }
+
+    #etitle{
+        font-size: 10px;
+    }
+    body{
+        font-family: Tahoma;
+    }
+    </style>
+
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+		<script>
+				var PORT = '8080';
+				var SERVER_URL = "http://localhost:" + PORT;
+		</script>
+		<script src="http://localhost:8080/socket.io/socket.io.js"></script>
+		<script>
+		var socket = io.connect(SERVER_URL);
+
+		socket.on('connect', function() {
+				document.getElementById('connected').innerHTML = '<span style="color:green;">Connected!</span>';
+		});
+
+		socket.on('disconnect', function(){
+			 document.getElementById('connected').innerHTML = '<span style="color:red;">Disconnected!</span>';
+		});
+		</script>
+
+		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.js"></script>
+		<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+
+		<script>
+		var chart;
+		$(document).ready(function() {
+			Highcharts.setOptions({
+				global: {
+						useUTC: false
+				}
+			});
+			chart = new Highcharts.Chart({
+				chart: {
+					renderTo: 'container',
+					defaultSeriesType: 'line',
+					events: {
+						load: requestData
+					}
+				},
+				title: {
+					text: ''
+				},
+				xAxis: {
+					type: 'datetime',
+					// dateTimeLabelFormats: { day: '%H:%M:%S' },
+					tickPixelInterval: 150,
+					maxZoom: 20 * 1000
+				},
+				yAxis: {
+					minPadding: 0.2,
+					maxPadding: 0.2,
+					title: {
+						text: 'Value',
+						margin: 80
+					}
+				},
+				series: [{
+					name: 'Kinesis Data Dump',
+					data: []
+				}]
+			});
+		});
+
+function requestData() {
+		socket.on("datadump", function(dumper) {
+			var x = JSON.stringify(dumper);
+      var len = x.length;
+      var rand = Math.floor((Math.random() * 100) + 1);
+			var data = len+rand;
+			var y = [(new Date().getTime()), data, dumper.EventID];
+			// dont touch anything below this x-(
+			var series = chart.series[0];
+			var shift = series.data.length > 20;
+			chart.series[0].addPoint(eval(y), true, shift);
+		});
+	}
+		</script>
+
+	</head>
+	<body>
+		<span id="connected">Not connected</span></center>
+		<div id="container" style="width: 800px; height: 150px; margin: 0 auto"></div>
+	</body>
+</html>

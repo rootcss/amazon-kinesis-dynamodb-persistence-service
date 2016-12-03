@@ -1,0 +1,48 @@
+#data-tab{
+    margin: 0px auto;
+    max-width: 800px;
+    height:35px;
+    margin-top:10px;
+    padding:10px;
+    background:#f0f0f0;
+    color:white;
+    border-radius:3px;
+    cursor: pointer;
+}
+#eventid{
+    color: black;
+    float: left;
+}
+#eventname{
+    color: blue;
+    float: left;
+}
+#eventtimestamp{
+    color: black;
+    float: right;
+}
+#shradid{
+    color: black;
+    float: right;
+}
+#etitle{
+    font-size: 10px;
+}
+body{
+    font-family: Tahoma;
+}
+#connected{
+    float: left;
+}
+#loading{
+    background:url(../images/hourglass.svg) no-repeat center center;
+    width:40px;
+    height:40px;
+    margin: 0px auto;
+    margin-top: 30px;
+    margin-left: -60px;
+    float:left;
+}
+#container {
+  width: 800px; height: 150px; margin: 0 auto;
+}

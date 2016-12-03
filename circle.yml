@@ -1,0 +1,13 @@
+machine:
+  node:
+    version: 5.1.0
+deployment:
+  staging:
+    branch: master
+    commands:
+      - bundle exec cap staging deploy
+  release:
+    tag: /v[0-9]+(\.[0-9]+)*/
+    commands:
+      - DEPLOY_COMMIT=$CIRCLE_TAG bundle exec cap sandbox deploy
+      - DEPLOY_COMMIT=$CIRCLE_TAG bundle exec cap production deploy
